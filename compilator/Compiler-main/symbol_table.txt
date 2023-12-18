@@ -1,0 +1,10 @@
+x int 3
+x1 int 700
+x2 int 30
+y int 100
+arr int 0
+f float 30.000000
+f1 float 0.000000
+ch char c
+C1.w int 0
+C2.t int 0

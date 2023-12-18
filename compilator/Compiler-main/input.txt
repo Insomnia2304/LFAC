@@ -1,0 +1,57 @@
+int a1, b1,simona, ceva, ana, a, b, c, i, mara, maria, noapte, zi, fi, bianca;
+float f1;
+bool x,exist;
+int yy[100], vec[100];
+string ISBN;
+
+int sum()
+begin_function
+    a1 = 2;
+    return b1;
+end_function
+
+int g()
+begin_function
+    ana = 2;
+    return ana;
+end_function
+
+int program(int a, int b)
+begin_function
+    a1 = 2;
+    return i;
+end_function
+
+begin_clasa biblioteca
+    int carte;
+    bool existaCarte(string ISBN);
+end_clasa
+
+begin_main
+    a1 = 5 - a1 * 2;
+    
+    a1 = a1 + b;
+    biblioteca.carte=5;
+    biblioteca.existaCarte(ISBN);
+    g(a1, b1);
+    vec[17] = 5.2;
+    program(a1 + 2*5, 5, program(2,a1+10)*ceva+vec[10] + biblioteca.carte);
+    if ( ana > 7 && ana < 2) 
+        a = b + c;
+    end_if
+    for(int i = 1; i < 5; i=i+1)
+        a = c + b;
+    end_for
+    while(mara<ana)
+        simona=maria+bianca;
+    end_while
+    do
+        fi=fi+1;
+    while(zi<noapte);
+    a.b = vec[17];
+    a = 5;
+    vec[16] = 52;
+    Eval(bianca);
+    TypeOf(x);
+    a1 = a1 + (23*5+b1*3+g(4));
+end_main

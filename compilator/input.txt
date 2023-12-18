@@ -1,0 +1,9 @@
+begin_program 
+
+class s {
+    int a;
+};
+
+int c;
+
+end_program
