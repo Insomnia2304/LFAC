@@ -1,9 +1,22 @@
 begin_program 
 
-class s {
+class masina {
     int a;
-};
+}a, b;
 
-int c;
+class sdads {
+    int x, sda, dd;
+    int b;
+    const char b;
+
+
+
+    int c;
+} mama, dsd;
+
+const int c;
+int s,df;
+bool aaaaaa,           b;
+char d;
 
 end_program

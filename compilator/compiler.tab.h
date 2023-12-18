@@ -58,8 +58,9 @@ extern int yydebug;
     END_PROGRAM = 259,             /* END_PROGRAM  */
     CLASS = 260,                   /* CLASS  */
     ID = 261,                      /* ID  */
-    ARRAY_SIZE = 262,              /* ARRAY_SIZE  */
-    TYPE = 263                     /* TYPE  */
+    CONST = 262,                   /* CONST  */
+    ARRAY_SIZE = 263,              /* ARRAY_SIZE  */
+    TYPE = 264                     /* TYPE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -73,7 +74,7 @@ union YYSTYPE
     char* string;
     int int_value;
 
-#line 77 "compiler.tab.h"
+#line 78 "compiler.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
