@@ -56,11 +56,33 @@ extern int yydebug;
     YYUNDEF = 257,                 /* "invalid token"  */
     BEGIN_PROGRAM = 258,           /* BEGIN_PROGRAM  */
     END_PROGRAM = 259,             /* END_PROGRAM  */
-    CLASS = 260,                   /* CLASS  */
-    ID = 261,                      /* ID  */
-    CONST = 262,                   /* CONST  */
-    ARRAY_SIZE = 263,              /* ARRAY_SIZE  */
-    TYPE = 264                     /* TYPE  */
+    BEGIN_MAIN = 260,              /* BEGIN_MAIN  */
+    END_MAIN = 261,                /* END_MAIN  */
+    CLASS = 262,                   /* CLASS  */
+    CONST = 263,                   /* CONST  */
+    TYPE = 264,                    /* TYPE  */
+    VOID = 265,                    /* VOID  */
+    ID = 266,                      /* ID  */
+    ASSIGN = 267,                  /* ASSIGN  */
+    VAR_CHAR = 268,                /* VAR_CHAR  */
+    VAR_STRING = 269,              /* VAR_STRING  */
+    ARRAY_SIZE = 270,              /* ARRAY_SIZE  */
+    VAR_INT = 271,                 /* VAR_INT  */
+    VAR_BOOL = 272,                /* VAR_BOOL  */
+    VAR_FLOAT = 273,               /* VAR_FLOAT  */
+    LESS = 274,                    /* LESS  */
+    GR = 275,                      /* GR  */
+    LEQ = 276,                     /* LEQ  */
+    GEQ = 277,                     /* GEQ  */
+    EQ = 278,                      /* EQ  */
+    NEQ = 279,                     /* NEQ  */
+    AND = 280,                     /* AND  */
+    OR = 281,                      /* OR  */
+    IF = 282,                      /* IF  */
+    ELSE = 283,                    /* ELSE  */
+    FOR = 284,                     /* FOR  */
+    DO = 285,                      /* DO  */
+    WHILE = 286                    /* WHILE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -69,12 +91,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "compiler.y"
+#line 9 "compiler.y"
 
     char* string;
-    int int_value;
+    int int_val;
+    float float_val;
 
-#line 78 "compiler.tab.h"
+#line 101 "compiler.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
