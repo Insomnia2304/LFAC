@@ -28,11 +28,34 @@ begin_main
 if (s == b) {
     s = b;
     b = c;
-    else {
         c = d;
+    while(f==e){
+        r=t;
+        if(mama == tata )
+        {
+            tata = mama;
+        }
+        do{
+            a=b;
+        } while(a<b);
     }
 }
-else 
+for (i=a; i<=n ; i=j)
+{
+    lfac=zece;
+    for(j=unu; j<=zece; j=k)
+    {
+        if(a!=b)
+        {
+            c=c;
+        }
+        else
+        {
+            d=d;
+        }
+    }
+}
+
 
 end_main
 end_program

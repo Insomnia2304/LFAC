@@ -85,9 +85,9 @@ PARAM_LIST : ARG ',' PARAM_LIST
 INSTR_LIST : /* epsilon */
     | INSTR_LIST INSTR ';'
     | INSTR_LIST if
-   /* | INSTR_LIST while
+    | INSTR_LIST while
     | INSTR_LIST do
-    | INSTR_LIST for */
+    | INSTR_LIST for 
     ;
 
 INSTR : ID ASSIGN ID
@@ -109,6 +109,15 @@ OP : LESS
 
 if : IF '(' COND ')' '{' INSTR_LIST '}'
     | IF '(' COND ')' '{' INSTR_LIST '}' ELSE '{' INSTR_LIST'}'
+    ;
+
+while : WHILE '(' COND ')' '{' INSTR_LIST '}'
+        ;
+
+do : DO '{' INSTR_LIST '}' WHILE '(' COND ')' ';'
+    ;
+
+for : FOR '(' INSTR ';' COND ';' INSTR ')' '{' INSTR_LIST '}'
     ;
 %%
 
