@@ -12,7 +12,7 @@ void yyerror(const char * s);
     float float_val;
 }
 
-%token <string> BEGIN_PROGRAM END_PROGRAM BEGIN_MAIN END_MAIN CLASS CONST
+%token <string> BEGIN_PROGRAM END_PROGRAM BEGIN_MAIN END_MAIN CLASS CONST MAIN
 %token <string> TYPE VOID ID ASSIGN VAR_CHAR VAR_STRING
 %token <int_val> ARRAY_SIZE VAR_INT VAR_BOOL
 %token <float_val> VAR_FLOAT
@@ -29,13 +29,29 @@ void yyerror(const char * s);
 %left '*' '/' '%'
 
 %%
-progr : BEGIN_PROGRAM SECT1_USER_DEFINED_DATA SECT2_GLOBAL_VARIABLES SECT3_GLOBAL_FUNCTIONS SECT4_MAIN END_PROGRAM { printf("The program is correct!\n"); }
-    | BEGIN_PROGRAM SECT1_USER_DEFINED_DATA SECT2_GLOBAL_VARIABLES SECT3_GLOBAL_FUNCTIONS SECT4_MAIN END_PROGRAM error { printf("Unexpected text after end of program!\n"); } //"error" is a keyword
+progr : BEGIN_PROGRAM SECTIONS END_PROGRAM { printf("The program is correct!\n"); }
+    | BEGIN_PROGRAM SECTIONS END_PROGRAM error { printf("Unexpected text after end of program!\n"); } //"error" is a keyword
     ;
 
 
-SECT1_USER_DEFINED_DATA : USER_DEFINED_TYPE SECT1_USER_DEFINED_DATA
-    | /* epsilon */
+SECTIONS : SECT1_USER_DEFINED_DATA SECTIONS 
+        | SECT2_GLOBAL_VARIABLES SECTIONS 
+        | SECT3_GLOBAL_FUNCTIONS SECTIONS 
+        | SECT4_MAIN 
+        ;
+
+/*
+SECTIONS : SECT1_USER_DEFINED_DATA  SECTIONS
+    |  REST1 ;
+
+REST1: SECT2_GLOBAL_VARIABLES REST1 
+    | REST2 ;
+
+REST2: SECT3_GLOBAL_FUNCTIONS REST2 
+    | SECT4_MAIN ;
+*/
+
+SECT1_USER_DEFINED_DATA : USER_DEFINED_TYPE
     ;
 
 USER_DEFINED_TYPE : CLASS ID '{' INSIDE_CLASS '}' ';'
@@ -47,15 +63,14 @@ INSIDE_CLASS : VAR_DECL INSIDE_CLASS
     | /* epsilon */
     ;
 
-SECT2_GLOBAL_VARIABLES : SECT2_GLOBAL_VARIABLES VAR_DECL
-    | /* epsilon */
+SECT2_GLOBAL_VARIABLES : VAR_DECL
     ;
 
-SECT3_GLOBAL_FUNCTIONS : FUNC_DECL SECT3_GLOBAL_FUNCTIONS
-    | /* epsilon */
+SECT3_GLOBAL_FUNCTIONS : FUNC_DECL
     ;
 
-SECT4_MAIN : BEGIN_MAIN INSTR_LIST END_MAIN
+SECT4_MAIN : TYPE MAIN '(' ')' '{' INSTR_LIST  '}' 
+    | VOID MAIN '(' ')' '{' INSTR_LIST  '}' 
     ;
 
 VAR_DECL : TYPE ID_LIST ';'
@@ -83,11 +98,12 @@ PARAM_LIST : ARG ',' PARAM_LIST
     ;
 
 INSTR_LIST : /* epsilon */
+    | INSTR_LIST VAR_DECL
     | INSTR_LIST INSTR ';'
     | INSTR_LIST if
     | INSTR_LIST while
     | INSTR_LIST do
-    | INSTR_LIST for 
+    | INSTR_LIST for
     ;
 
 INSTR : ID ASSIGN ID

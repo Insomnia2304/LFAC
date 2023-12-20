@@ -1,35 +1,21 @@
 begin_program 
 
+
 class masina {
-    int a;
-}a, b;
+    int a,b,c;
+};
 
-class sdads {
-    int x, sda, dd;
-    int b;
-    const char b;
-    int s();
-    void a();
-    void b(int a, int dsd, char sdsdsa);
+int functie();
+void f2(int parametru);
 
-
-    int c;
-} mama, dsd;
-
-int s();
-    void a();
-    void b(int a, int dsd, char s[20]);
-    int s();
-    void a();
-    void b(int a, int dsd, char sdsdsa);
-
-begin_main
-
+int main(){
+int b;
+bool expr;
 if (s == b) {
     s = b;
     b = c;
         c = d;
-    while(f==e){
+    while(f==e && n==i){
         r=t;
         if(mama == tata )
         {
@@ -40,6 +26,7 @@ if (s == b) {
         } while(a<b);
     }
 }
+
 for (i=a; i<=n ; i=j)
 {
     lfac=zece;
@@ -56,6 +43,5 @@ for (i=a; i<=n ; i=j)
     }
 }
 
-
-end_main
+}
 end_program

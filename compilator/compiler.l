@@ -8,6 +8,7 @@
 "begin_program" { return BEGIN_PROGRAM; }
 "end_program" { return END_PROGRAM; }
 "begin_main" { return BEGIN_MAIN; }
+"main" { return MAIN; }
 "end_main" { return END_MAIN; }
 "==" { return EQ; }
 "!=" { return NEQ; }
