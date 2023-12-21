@@ -12,9 +12,9 @@ void yyerror(const char * s);
     float float_val;
 }
 
-%token <string> BEGIN_PROGRAM END_PROGRAM BEGIN_MAIN END_MAIN CLASS CONST MAIN
+%token <string> RETURN CLASS CONST MAIN
 %token <string> TYPE VOID ID ASSIGN VAR_CHAR VAR_STRING
-%token <int_val> ARRAY_SIZE VAR_INT VAR_BOOL
+%token <int_val> VAR_BOOL VAR_INT
 %token <float_val> VAR_FLOAT
 %token <string> LESS GR LEQ GEQ 
 %token <string> EQ NEQ
@@ -29,8 +29,8 @@ void yyerror(const char * s);
 %left '*' '/' '%'
 
 %%
-progr : BEGIN_PROGRAM SECTIONS END_PROGRAM { printf("The program is correct!\n"); }
-    | BEGIN_PROGRAM SECTIONS END_PROGRAM error { printf("Unexpected text after end of program!\n"); } //"error" is a keyword
+progr : SECTIONS { printf("The program is correct!\n"); }
+    | SECTIONS error { printf("Unexpected text after end of program!\n"); } //"error" is a keyword
     ;
 
 
@@ -82,19 +82,18 @@ ID_LIST : ELEMENT
     ;
 
 ELEMENT : ID
-    | ID '[' ARRAY_SIZE ']'
+    | ID ASSIGN EXPR
+    | ID '[' EXPR ']'
+    // maybe allow in-place array initialization
     ;
 
-FUNC_DECL : TYPE ID '(' PARAM_LIST ')' ';'
-    | VOID ID '(' PARAM_LIST ')' ';'
+FUNC_DECL : TYPE ID '(' PARAM_LIST ')' '{' INSTR_LIST '}'
+    | VOID ID '(' PARAM_LIST ')' '{' INSTR_LIST '}'
     ;
 
-ARG : TYPE ELEMENT
+PARAM_LIST : TYPE ELEMENT ',' PARAM_LIST
+    | TYPE ELEMENT
     | /* epsilon */
-    ;
-
-PARAM_LIST : ARG ',' PARAM_LIST
-    | ARG
     ;
 
 INSTR_LIST : /* epsilon */
@@ -104,15 +103,40 @@ INSTR_LIST : /* epsilon */
     | INSTR_LIST while
     | INSTR_LIST do
     | INSTR_LIST for
+    | '{' INSTR_LIST '}'
+    | INSTR_LIST RETURN EXPR ';'
     ;
 
-INSTR : ID ASSIGN ID
+INSTR : LVALUE ASSIGN EXPR
+    | EXPR
+    ;
+
+LVALUE : ID
+    | ID '[' EXPR ']'
+    | ID '.' LVALUE
+    | ID '[' EXPR ']' '.' LVALUE
+    ;
+
+RVALUE : ID
+    | ID '(' ARGS_LIST ')'
+    | ID '.' RVALUE
+    | ID '[' EXPR ']'
+    | ID '[' EXPR ']' '.' RVALUE
+
+EXPR : EXPR '+' EXPR
+    | EXPR '-' EXPR
+    | EXPR '*' EXPR
+    | EXPR '/' EXPR
+    | EXPR '%' EXPR
+    | '(' EXPR ')'
+    | CONSTANT
+    | RVALUE
     ;
 
 COND : COND AND COND
     | COND OR COND
     | '(' COND ')'
-    | ID OP ID
+    | EXPR OP EXPR
     ;
 
 OP : LESS
@@ -125,6 +149,7 @@ OP : LESS
 
 if : IF '(' COND ')' '{' INSTR_LIST '}'
     | IF '(' COND ')' '{' INSTR_LIST '}' ELSE '{' INSTR_LIST'}'
+    | IF '(' COND ')' '{' INSTR_LIST '}' ELSE IF '(' COND ')' '{' INSTR_LIST'}'
     ;
 
 while : WHILE '(' COND ')' '{' INSTR_LIST '}'
@@ -135,6 +160,20 @@ do : DO '{' INSTR_LIST '}' WHILE '(' COND ')' ';'
 
 for : FOR '(' INSTR ';' COND ';' INSTR ')' '{' INSTR_LIST '}'
     ;
+
+ARGS_LIST : EXPR ',' ARGS_LIST
+    | EXPR
+    | /* epsilon */
+    ;
+
+
+CONSTANT : VAR_INT
+    | VAR_FLOAT
+    | VAR_BOOL
+    | VAR_CHAR
+    | VAR_STRING
+    ;
+
 %%
 
 void yyerror(const char * s) {
@@ -144,4 +183,4 @@ void yyerror(const char * s) {
 int main(int argc, char **argv) {
     yyin = fopen(argv[1], "r");
     yyparse();
-} 
+}

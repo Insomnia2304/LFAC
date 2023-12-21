@@ -54,36 +54,32 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    BEGIN_PROGRAM = 258,           /* BEGIN_PROGRAM  */
-    END_PROGRAM = 259,             /* END_PROGRAM  */
-    BEGIN_MAIN = 260,              /* BEGIN_MAIN  */
-    END_MAIN = 261,                /* END_MAIN  */
-    CLASS = 262,                   /* CLASS  */
-    CONST = 263,                   /* CONST  */
-    MAIN = 264,                    /* MAIN  */
-    TYPE = 265,                    /* TYPE  */
-    VOID = 266,                    /* VOID  */
-    ID = 267,                      /* ID  */
-    ASSIGN = 268,                  /* ASSIGN  */
-    VAR_CHAR = 269,                /* VAR_CHAR  */
-    VAR_STRING = 270,              /* VAR_STRING  */
-    ARRAY_SIZE = 271,              /* ARRAY_SIZE  */
-    VAR_INT = 272,                 /* VAR_INT  */
-    VAR_BOOL = 273,                /* VAR_BOOL  */
-    VAR_FLOAT = 274,               /* VAR_FLOAT  */
-    LESS = 275,                    /* LESS  */
-    GR = 276,                      /* GR  */
-    LEQ = 277,                     /* LEQ  */
-    GEQ = 278,                     /* GEQ  */
-    EQ = 279,                      /* EQ  */
-    NEQ = 280,                     /* NEQ  */
-    AND = 281,                     /* AND  */
-    OR = 282,                      /* OR  */
-    IF = 283,                      /* IF  */
-    ELSE = 284,                    /* ELSE  */
-    FOR = 285,                     /* FOR  */
-    DO = 286,                      /* DO  */
-    WHILE = 287                    /* WHILE  */
+    RETURN = 258,                  /* RETURN  */
+    CLASS = 259,                   /* CLASS  */
+    CONST = 260,                   /* CONST  */
+    MAIN = 261,                    /* MAIN  */
+    TYPE = 262,                    /* TYPE  */
+    VOID = 263,                    /* VOID  */
+    ID = 264,                      /* ID  */
+    ASSIGN = 265,                  /* ASSIGN  */
+    VAR_CHAR = 266,                /* VAR_CHAR  */
+    VAR_STRING = 267,              /* VAR_STRING  */
+    VAR_BOOL = 268,                /* VAR_BOOL  */
+    VAR_INT = 269,                 /* VAR_INT  */
+    VAR_FLOAT = 270,               /* VAR_FLOAT  */
+    LESS = 271,                    /* LESS  */
+    GR = 272,                      /* GR  */
+    LEQ = 273,                     /* LEQ  */
+    GEQ = 274,                     /* GEQ  */
+    EQ = 275,                      /* EQ  */
+    NEQ = 276,                     /* NEQ  */
+    AND = 277,                     /* AND  */
+    OR = 278,                      /* OR  */
+    IF = 279,                      /* IF  */
+    ELSE = 280,                    /* ELSE  */
+    FOR = 281,                     /* FOR  */
+    DO = 282,                      /* DO  */
+    WHILE = 283                    /* WHILE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -98,7 +94,7 @@ union YYSTYPE
     int int_val;
     float float_val;
 
-#line 102 "compiler.tab.h"
+#line 98 "compiler.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -1,47 +1,48 @@
-begin_program 
 
 
-class masina {
-    int a,b,c;
-};
+int global,p=1000;
+float d=9, dd=9999.7777;
 
-int functie();
-void f2(int parametru);
+string s="am adaugat caracterul space la string si char in lex";
 
-int main(){
-int b;
-bool expr;
-if (s == b) {
-    s = b;
-    b = c;
-        c = d;
-    while(f==e && n==i){
-        r=t;
-        if(mama == tata )
-        {
-            tata = mama;
-        }
-        do{
-            a=b;
-        } while(a<b);
+char c='a',s=' ';
+
+
+class masina{
+    int a,b;
+    char caracter;
+    void f() {
+        a=3;
     }
+    int ff(int c, int z) {
+        c=z;
+        if( rrrr() == 8 ) {
+             a=a+1;
+        }  
+        return -98686;   
+    }
+} M;
+
+int mama() {
+
 }
 
-for (i=a; i<=n ; i=j)
-{
-    lfac=zece;
-    for(j=unu; j<=zece; j=k)
+int main() {
+    int a,b,x;
+    x=a+b;
+
+    4; a%10;
+    
+    if ( x%2 == 1) {
+        a=a+1;
+    } else if( 2+2 == 4)
     {
-        if(a!=b)
-        {
-            c=c;
-        }
-        else
-        {
-            d=d;
-        }
+        b=functie(7+8+c,vector[2]);
+        vector[9]=6;
     }
+  
+    b=b%10;
+    return 0;
 }
 
-}
-end_program
+
