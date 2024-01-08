@@ -58,28 +58,31 @@ extern int yydebug;
     CLASS = 259,                   /* CLASS  */
     CONST = 260,                   /* CONST  */
     MAIN = 261,                    /* MAIN  */
-    TYPE = 262,                    /* TYPE  */
-    VOID = 263,                    /* VOID  */
-    ID = 264,                      /* ID  */
-    ASSIGN = 265,                  /* ASSIGN  */
-    VAR_CHAR = 266,                /* VAR_CHAR  */
-    VAR_STRING = 267,              /* VAR_STRING  */
-    VAR_BOOL = 268,                /* VAR_BOOL  */
-    VAR_INT = 269,                 /* VAR_INT  */
-    VAR_FLOAT = 270,               /* VAR_FLOAT  */
-    LESS = 271,                    /* LESS  */
-    GR = 272,                      /* GR  */
-    LEQ = 273,                     /* LEQ  */
-    GEQ = 274,                     /* GEQ  */
-    EQ = 275,                      /* EQ  */
-    NEQ = 276,                     /* NEQ  */
-    AND = 277,                     /* AND  */
-    OR = 278,                      /* OR  */
-    IF = 279,                      /* IF  */
-    ELSE = 280,                    /* ELSE  */
-    FOR = 281,                     /* FOR  */
-    DO = 282,                      /* DO  */
-    WHILE = 283                    /* WHILE  */
+    EVAL = 262,                    /* EVAL  */
+    TYPEOF = 263,                  /* TYPEOF  */
+    TYPE = 264,                    /* TYPE  */
+    VOID = 265,                    /* VOID  */
+    ID = 266,                      /* ID  */
+    ASSIGN = 267,                  /* ASSIGN  */
+    VAR_CHAR = 268,                /* VAR_CHAR  */
+    VAR_STRING = 269,              /* VAR_STRING  */
+    VAR_INT = 270,                 /* VAR_INT  */
+    VAR_FLOAT = 271,               /* VAR_FLOAT  */
+    VAR_BOOL = 272,                /* VAR_BOOL  */
+    LESS = 273,                    /* LESS  */
+    GR = 274,                      /* GR  */
+    LEQ = 275,                     /* LEQ  */
+    GEQ = 276,                     /* GEQ  */
+    EQ = 277,                      /* EQ  */
+    NEQ = 278,                     /* NEQ  */
+    NOT = 279,                     /* NOT  */
+    AND = 280,                     /* AND  */
+    OR = 281,                      /* OR  */
+    IF = 282,                      /* IF  */
+    ELSE = 283,                    /* ELSE  */
+    FOR = 284,                     /* FOR  */
+    DO = 285,                      /* DO  */
+    WHILE = 286                    /* WHILE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -88,13 +91,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "compiler.y"
+#line 14 "compiler.y"
 
     char* string;
     int int_val;
     float float_val;
+    struct AST* tree;
 
-#line 98 "compiler.tab.h"
+#line 102 "compiler.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
