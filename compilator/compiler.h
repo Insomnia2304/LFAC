@@ -369,6 +369,17 @@ const char *getVarValue(const char *name, int yylineno)
     return "?";
 }
 
+const char *getTypeOfObject(const char *name, int yylineno)
+{
+    for (int i = 0; i < varsNumber; i++)
+        if (strcmp(vars[i].name, name) == 0)
+        {
+            return vars[i].type;
+        }
+    printf("[Line %d] Error: Variable %s is not declared\n", yylineno, name);
+    exit(0);
+}
+
 const char *getVarType(const char *name)
 {
     if (strchr(name, '[') == 0) // simple variable
@@ -841,24 +852,6 @@ void TypeOf(resultAST expr, int yylineno)
     printf("Function TypeOf was called at line %d. The type is: %s\n", yylineno, convertEnumToString(expr.treeType));
 }
 
-void print()
-{
-    for (int i = 0; i < varsNumber; i++)
-        printf("%d. Name: %s, Type: %s, Value: %s, Domain: %s, Constant: %s\n", i + 1, vars[i].name, vars[i].type, vars[i].value, vars[i].domain, vars[i].isConst ? "yes" : "no");
-    for (int i = 0; i < funcNumber; i++)
-        printf("%d. Name: %s, Returned type: %s, Parameters: %s, Domain: %s\n", i + 1, func[i].name, func[i].returnType, func[i].paramList, func[i].domain);
-}
-
-const char *getTypeOfObject(const char *name, int yylineno)
-{
-    for (int i = 0; i < varsNumber; i++)
-        if (strcmp(vars[i].name, name) == 0)
-        {
-            return vars[i].type;
-        }
-    printf("[Line %d] Error: Variable %s is not declared\n", yylineno, name);
-    exit(0);
-}
 void isIdInClass(const char *object, const char *id, int yylineno)
 {
     const char *clasa = getTypeOfObject(object, yylineno);
@@ -881,4 +874,25 @@ void isMemberInClass(const char *object, const char *function, int yylineno)
         }
     printf("[Line %d] Error: Function %s is not declared in class %s\n", yylineno, function, clasa);
     exit(0);
+}
+
+// print
+void print()
+{
+    for (int i = 0; i < varsNumber; i++)
+        printf("%d. Name: %s, Type: %s, Value: %s, Domain: %s, Constant: %s\n", i + 1, vars[i].name, vars[i].type, vars[i].value, vars[i].domain, vars[i].isConst ? "yes" : "no");
+    for (int i = 0; i < funcNumber; i++)
+        printf("%d. Name: %s, Returned type: %s, Parameters: %s, Domain: %s\n", i + 1, func[i].name, func[i].returnType, func[i].paramList, func[i].domain);
+}
+
+void printVar(FILE *fptr)
+{
+    for (int i = 0; i < varsNumber; i++)
+        fprintf(fptr, "%d. Name: %s, Type: %s, Value: %s, Domain: %s, Constant: %s\n", i + 1, vars[i].name, vars[i].type, vars[i].value, vars[i].domain, vars[i].isConst ? "yes" : "no");
+}
+
+void printFunc(FILE *fptr)
+{
+    for (int i = 0; i < funcNumber; i++)
+        fprintf(fptr, "%d. Name: %s, Returned type: %s, Parameters: %s, Domain: %s\n", i + 1, func[i].name, func[i].returnType, func[i].paramList, func[i].domain);
 }

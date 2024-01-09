@@ -96,7 +96,11 @@ VAR_DECL : TYPE ID {  AST* aux=buildTree(strcmp($1,"bool")==0? "false": "0",conv
     | CONST TYPE ID ASSIGN EXPR { addVar($2,$3,evaluateTree($5,yylineno),domain,1,yylineno); }
     | TYPE ID '[' EXPR ']'  { int size=checkSize(evaluateTree($4,yylineno),yylineno); addArray($1,$2,size,domain,0,yylineno);}
     | ID ID   { checkClass($1,yylineno); AST* aux=buildTree("0",OTHER,NULL,NULL,yylineno); addVar($1, $2, evaluateTree(aux,yylineno),domain, 0, yylineno);}
+    | TYPE ID '[' EXPR ']' '[' EXPR']'
+    | TYPE ID '[' EXPR ']' '[' EXPR']' '[' EXPR']'
+    | TYPE ID '[' EXPR ']' '[' EXPR']' '[' EXPR']' '[' EXPR']'
     ;
+
 
 
 FUNC_DECL : TYPE ID {strcpy(domain,$2);} '(' PARAM_LIST ')' '{' INSTR_LIST '}'  { addFunction($1,$2,functionDomain,yylineno); strcpy(domain,"global"); }
@@ -120,6 +124,8 @@ INSTR_LIST : /* epsilon */
     ;
 
 INSTR : LVALUE ASSIGN EXPR { updateVarValue(lvalue,evaluateTree($3,yylineno),yylineno); }
+    | MULTIDIM ASSIGN MULTIDIM
+    | MULTIDIM ASSIGN EXPR
     | EXPR
     ;
 
@@ -136,6 +142,11 @@ RVALUE : ID
     | ID '[' EXPR ']' '.' RVALUE
     ;
 */
+
+MULTIDIM:   | ID '[' EXPR ']' '[' EXPR']'
+    | ID '[' EXPR ']' '[' EXPR']' '[' EXPR']'
+    | ID '[' EXPR ']' '[' EXPR']' '[' EXPR']' '[' EXPR']' 
+    ;
 
 EXPR : EXPR '+' EXPR { $$=buildTree("+", OPERATOR, $1, $3,yylineno); }
     | EXPR '-' EXPR { $$=buildTree("-", OPERATOR, $1, $3,yylineno); }
@@ -197,7 +208,14 @@ void yyerror(const char * s) {
 }
 
 int main(int argc, char **argv) {
+    FILE *fvar, *ffunc;
+    fvar = fopen("variables.txt", "w");
+    ffunc= fopen("functions.txt", "w");
     yyin = fopen(argv[1], "r");
     yyparse();
-    print();
+    //print();
+    printVar(fvar);
+    printFunc(ffunc);
+    fclose(fvar);
+    fclose(ffunc);
 }

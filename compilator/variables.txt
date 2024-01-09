@@ -1,0 +1,12 @@
+1. Name: x, Type: int, Value: 3, Domain: global, Constant: no
+2. Name: y, Type: int, Value: 0, Domain: global, Constant: no
+3. Name: x, Type: int, Value: 0, Domain: h, Constant: no
+4. Name: y, Type: bool, Value: false, Domain: h, Constant: no
+5. Name: suma, Type: int, Value: 3, Domain: suma, Constant: no
+6. Name: dif, Type: int, Value: 3, Domain: dif, Constant: no
+7. Name: nr, Type: numere, Value: 0, Domain: global, Constant: no
+8. Name: str, Type: string, Value: Proiect la lfac, Domain: main, Constant: no
+9. Name: v, Type: int[10], Value: 3 4 0 6 0 0 0 0 0 0, Domain: main, Constant: no
+10. Name: x, Type: int, Value: 9, Domain: main, Constant: no
+11. Name: constanta, Type: int, Value: 6, Domain: main, Constant: yes
+12. Name: verif, Type: bool, Value: false, Domain: main, Constant: yes

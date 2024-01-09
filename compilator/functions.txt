@@ -1,0 +1,5 @@
+1. Name: functie, Returned type: float, Parameters: -, Domain: global
+2. Name: g, Returned type: int, Parameters: -, Domain: global
+3. Name: h, Returned type: int, Parameters: int, bool, Domain: global
+4. Name: suma, Returned type: int, Parameters: -, Domain: numere
+5. Name: dif, Returned type: int, Parameters: int, Domain: numere
