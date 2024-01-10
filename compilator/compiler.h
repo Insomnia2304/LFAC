@@ -315,6 +315,13 @@ const char *getVarValue(const char *name, int yylineno)
                 return vars[i].value;
             }
 
+        //extend domain (for classes)
+        for (int i = 0; i < varsNumber; i++)
+            if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, functionDomain) == 0)
+            {
+                return vars[i].value;
+            }
+
         // nothing local, try global
         for (int i = 0; i < varsNumber; i++)
             if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, "global") == 0)
@@ -346,6 +353,26 @@ const char *getVarValue(const char *name, int yylineno)
                     contor++;
                 }
             }
+
+        // extend domain (for classes)
+        for (int i = 0; i < varsNumber; i++)
+            if (strcmp(vars[i].name, identif) == 0 && strcmp(vars[i].domain, functionDomain) == 0)
+            {
+                char newValues[LENMAX];
+                strcpy(newValues, vars[i].value);
+                char *q = strtok(newValues, " ");
+                int contor = 0;
+                while (q)
+                {
+                    if (contor == index)
+                    {
+                        return q;
+                    }
+                    q = strtok(NULL, " ");
+                    contor++;
+                }
+            }
+
         // nothing local, try global
         for (int i = 0; i < varsNumber; i++)
             if (strcmp(vars[i].name, identif) == 0 && strcmp(vars[i].domain, "global") == 0)
@@ -390,6 +417,13 @@ const char *getVarType(const char *name)
             {
                 return vars[i].type;
             }
+        //extend domain (for classes)
+          for (int i = 0; i < varsNumber; i++)
+            if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, functionDomain) == 0)
+            {
+                return vars[i].type;
+            }
+
         // nothing local, try global
         for (int i = 0; i < varsNumber; i++)
             if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, "global") == 0)
@@ -455,6 +489,24 @@ void updateVarValue(char *name, resultAST value, int yylineno)
                 return;
             }
 
+        // extend domain (for classes)
+        for (int i = 0; i < varsNumber; i++)
+            if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, functionDomain) == 0)
+            {
+                if (vars[i].isConst)
+                {
+                    printf("[Line %d] Error: The value of constant variable %s cannot be modified\n", yylineno, name);
+                    exit(0);
+                }
+                if (value.treeType != OTHER && convertStringToEnum(vars[i].type) != value.treeType)
+                {
+                    printf("[Line %d] Error: The language does not support casting for variable %s\n", yylineno, name);
+                    exit(0);
+                }
+                strcpy(vars[i].value, value.resultStr);
+                return;
+            }
+
         // nothing local, try global
         for (int i = 0; i < varsNumber; i++)
             if (strcmp(vars[i].name, name) == 0 && strcmp(vars[i].domain, "global") == 0)
@@ -482,6 +534,35 @@ void updateVarValue(char *name, resultAST value, int yylineno)
         // first, try to find something local
         for (int i = 0; i < varsNumber; i++)
             if (strcmp(vars[i].name, identif) == 0 && strcmp(vars[i].domain, domain) == 0)
+            {
+                if (value.treeType != OTHER && convertStringToEnum(vars[i].type) != value.treeType)
+                {
+                    printf("[Line %d] Error: The language does not support casting for variable %s\n", yylineno, name);
+                    exit(0);
+                }
+                // update
+                char newValues[LENMAX];
+                newValues[0] = 0;
+                char *q = strtok(vars[i].value, " ");
+                int contor = 0;
+                while (q)
+                {
+                    if (contor == index)
+                        strcat(newValues, value.resultStr);
+                    else
+                        strcat(newValues, q);
+                    strcat(newValues, " ");
+                    q = strtok(NULL, " ");
+                    contor++;
+                }
+                newValues[strlen(newValues) - 1] = 0;
+                strcpy(vars[i].value, newValues);
+                return;
+            }
+
+        // extend domain (for classes)
+        for (int i = 0; i < varsNumber; i++)
+            if (strcmp(vars[i].name, identif) == 0 && strcmp(vars[i].domain, functionDomain) == 0)
             {
                 if (value.treeType != OTHER && convertStringToEnum(vars[i].type) != value.treeType)
                 {
